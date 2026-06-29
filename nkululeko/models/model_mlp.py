@@ -193,8 +193,9 @@ class MLPModel(Model):
 
     def get_loader(self, df_x, df_y, shuffle):
         data = []
+        targets = df_y.loc[df_x.index, self.target]
         for i in range(len(df_x)):
-            data.append([df_x.values[i], df_y[self.target].iloc[i]])
+            data.append([df_x.values[i], targets.iloc[i]])
         return torch.utils.data.DataLoader(
             data, shuffle=shuffle, batch_size=self.batch_size
         )
